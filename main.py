@@ -20,6 +20,7 @@ class Game:
         ]
 
     def update(self):
+        # Runs the player.update function, using self.platforms as a parameter to tell it what platforms exist for collision purposes
         self.player.update(self.platforms)
 
     def draw(self):

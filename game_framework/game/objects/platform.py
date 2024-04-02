@@ -1,7 +1,4 @@
-from game_framework.game.objects.game_object import GameObject
-
 import turtle
-
 
 class Platform:
     def __init__(self, x, y, width, height, color="gray"):
@@ -17,7 +14,19 @@ class Platform:
     def intersects(self, other):
         # Check if the bounding boxes of the two objects intersect
         return (abs(self.turtle.xcor() - other.turtle.xcor()) * 2 < (self.width + other.width)) and \
-            (abs(self.turtle.ycor() - other.turtle.ycor()) * 2 < (self.height + other.height))
+               (abs(self.turtle.ycor() - other.turtle.ycor()) * 2 < (self.height + other.height))
+
+    def left_edge(self):
+        return self.turtle.xcor() - self.width / 2
+
+    def right_edge(self):
+        return self.turtle.xcor() + self.width / 2
+
+    def top_height(self):
+        return self.turtle.ycor() + self.height / 2
+
+    def bottom_height(self):
+        return self.turtle.ycor() - self.height / 2
 
     def draw(self):
         # No need to draw the platform separately since it's a turtle
