@@ -16,26 +16,32 @@ class Player:
         self.jump_speed = 10  # Adjust jump speed as needed
         self.gravity = 0.5  # Adjust gravity as needed
         self.fall_speed = -5  # Constant downward velocity
-        self.max_jump_height = 100  # Maximum height of the jump
+        self.max_jump_height = 200  # Maximum height of the jump
         self.is_jumping = False
         self.y_velocity = 0
         self.jump_start_y = 0
-
+        self.x_velocity = 0
         self.setup_input_handling()
 
     def setup_input_handling(self):
         self.screen = self.turtle.getscreen()
         self.screen.onkeypress(self.move_left, "Left")
+        self.screen.onkey(self.move_stop, "Left")
         self.screen.onkeypress(self.move_right, "Right")
+        self.screen.onkey(self.move_stop, "Right")
         self.screen.onkeypress(self.jump, "Up")
         self.screen.listen()
 
     def move_left(self):
-        self.turtle.setx(self.turtle.xcor() - 10)  # Adjust the movement speed as needed
+        self.x_velocity = -15
+        #self.turtle.setx(self.turtle.xcor() - speed)  # Adjust the movement speed as needed
 
     def move_right(self):
-        self.turtle.setx(self.turtle.xcor() + 10)  # Adjust the movement speed as needed
+        self.x_velocity = 15
+        #self.turtle.setx(self.turtle.xcor() + speed)  # Adjust the movement speed as needed
 
+    def move_stop(self):
+        self.x_velocity = 0
     def jump(self):
         if not self.is_jumping:
             self.is_jumping = True
@@ -57,6 +63,9 @@ class Player:
         else:
             self.is_jumping = False  # Stop jumping if reaching the top edge of the window
             self.turtle.sety(-self.screen.window_height() / 2 + self.height / 2)
+
+        new_x = self.turtle.xcor() + self.x_velocity
+        self.turtle.setx(new_x)
 
         # Check for collision with platforms
         for platform in platforms:
