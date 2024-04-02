@@ -2,6 +2,7 @@ import turtle
 from game_framework.game.objects.player import Player
 from game_framework.game.objects.platform import Platform
 
+
 class Game:
     def __init__(self, width, height):
         self.screen = turtle.Screen()

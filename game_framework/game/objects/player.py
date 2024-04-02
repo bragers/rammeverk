@@ -15,6 +15,7 @@ class Player:
         self.height = height
         self.jump_speed = 10  # Adjust jump speed as needed
         self.gravity = 0.5  # Adjust gravity as needed
+        self.fall_speed = -5  # Constant downwards speed
         self.is_jumping = False
         self.y_velocity = 0
 
@@ -38,18 +39,26 @@ class Player:
             self.is_jumping = True
             self.y_velocity = self.jump_speed
 
+    def apply_gravity(self):
+        if not self.is_jumping:
+            self.y_velocity = self.fall_speed
+
     def update(self, platforms):
-        if self.is_jumping:
-            self.turtle.sety(self.turtle.ycor() + self.y_velocity)
-            self.y_velocity -= self.gravity
-            if self.turtle.ycor() <= 0:
+        # Apply gravity
+        self.apply_gravity()
+
+        # Update player position
+        new_y = self.turtle.ycor() + self.y_velocity
+        if new_y > -self.screen.window_height() / 2 + self.height / 2:
+            self.turtle.sety(new_y)
+        else:
+            self.turtle.sety(-self.screen.window_height() / 2 + self.height / 2)
+
+        # Check for collision with platforms
+        for platform in platforms:
+            if platform.intersects(self):
                 self.is_jumping = False
-                self.turtle.sety(0)
-            # Check for collision with platforms
-            for platform in platforms:
-                if platform.intersects(self):
-                    self.is_jumping = False
-                    self.turtle.sety(platform.turtle.ycor() + platform.height + self.height / 2)
+                self.turtle.sety(platform.turtle.ycor() + platform.height / 2 + self.height / 2)
 
     def draw(self):
         pass
