@@ -38,18 +38,22 @@ class Player:
             self.is_jumping = True
             self.y_velocity = self.jump_speed
 
-    def update(self):
+    def update(self, platforms):
         if self.is_jumping:
             self.turtle.sety(self.turtle.ycor() + self.y_velocity)
             self.y_velocity -= self.gravity
-            if self.turtle.ycor() <= 0:  # Adjust the condition as needed
+            if self.turtle.ycor() <= 0:
                 self.is_jumping = False
                 self.turtle.sety(0)
+            # Check for collision with platforms
+            for platform in platforms:
+                if platform.intersects(self):
+                    self.is_jumping = False
+                    self.turtle.sety(platform.turtle.ycor() + platform.height + self.height / 2)
 
     def draw(self):
-        # No need to draw the player separately since it's a turtle
         pass
 
     @classmethod
-    def create_player(cls):
-        return cls()
+    def create_player(cls, **kwargs):
+        return cls(**kwargs)

@@ -1,6 +1,6 @@
 import turtle
 from game_framework.game.objects.player import Player
-
+from game_framework.game.objects.platform import Platform
 
 class Game:
     def __init__(self, width, height):
@@ -9,16 +9,22 @@ class Game:
         self.screen.title("2D Platformer Game")
         self.screen.bgcolor("black")
 
-        self.player = Player.create_player()  # Create player object using class method
+        self.player = Player.create_player(x=0, y=-50)  # Adjust player initial position
+
+        # Create platforms
+        self.platforms = [
+            Platform(x=-100, y=-50, width=200, height=20),
+            Platform(x=0, y=100, width=150, height=20),
+            # Add more platforms as needed
+        ]
 
     def update(self):
-        # Update game state
-        self.player.update()
-        # Add more update logic for other game objects
+        self.player.update(self.platforms)
 
     def draw(self):
         self.player.draw()
-        # Add more drawing logic for other game objects
+        for platform in self.platforms:
+            platform.draw()
 
     def run(self):
         while True:
