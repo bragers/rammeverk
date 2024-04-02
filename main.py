@@ -10,7 +10,7 @@ class Game:
         self.screen.title("2D Platformer Game")
         self.screen.bgcolor("black")
 
-        self.player = Player.create_player(x=0, y=-50)  # Adjust player initial position
+        self.player = Player.create_player(x=-100, y=25)  # Adjust player initial position
 
         # Create platforms
         self.platforms = [

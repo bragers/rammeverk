@@ -15,13 +15,9 @@ class Platform:
         self.height = height
 
     def intersects(self, other):
-        # Shrink the collision border by a certain factor (e.g., 0.9)
-        shrink_factor = 0.9
-        x_overlap = (abs(self.turtle.xcor() - other.turtle.xcor()) * 2 < (self.width * shrink_factor +
-                                                                          other.width * shrink_factor))
-        y_overlap = (abs(self.turtle.ycor() - other.turtle.ycor()) * 2 < (self.height * shrink_factor +
-                                                                          other.height * shrink_factor))
-        return x_overlap and y_overlap
+        # Check if the bounding boxes of the two objects intersect
+        return (abs(self.turtle.xcor() - other.turtle.xcor()) * 2 < (self.width + other.width)) and \
+            (abs(self.turtle.ycor() - other.turtle.ycor()) * 2 < (self.height + other.height))
 
     def draw(self):
         # No need to draw the platform separately since it's a turtle
