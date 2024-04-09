@@ -16,6 +16,7 @@ class Game:
         self.platforms = [
             Platform(x=-100, y=-50, width=200, height=20),
             Platform(x=0, y=100, width=150, height=20),
+            Platform(x=150, y=120, width=150, height=20),
             # Add more platforms as needed
         ]
 
@@ -23,15 +24,9 @@ class Game:
         # Runs the player.update function, using self.platforms as a parameter to tell it what platforms exist for collision purposes
         self.player.update(self.platforms)
 
-    def draw(self):
-        self.player.draw()
-        for platform in self.platforms:
-            platform.draw()
-
     def run(self):
         while True:
             self.update()
-            self.draw()
             self.screen.update()
 
 
