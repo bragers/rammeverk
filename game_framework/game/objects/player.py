@@ -3,7 +3,7 @@ from functools import partial
 
 
 class Player:
-    def __init__(self, x=0, y=0, shape="square", color="white", width=20, height=20, gravity=1, jump_speed=10, max_jump_height=100, move_speed=10):
+    def __init__(self, x=0, y=0, shape="square", color="white", width=20, height=20, gravity=1, jump_speed=10, max_jumps=2, move_speed=10):
         self.screen = None
         self.turtle = turtle.Turtle()
         self.turtle.shape(shape)
@@ -14,7 +14,8 @@ class Player:
         self.height = height
         self.gravity = gravity
         self.jump_speed = jump_speed
-        self.max_jump_height = max_jump_height
+        self.jump_count = 0
+        self.max_jumps = max_jumps
         self.is_jumping = False
         self.y_velocity = 0
         self.jump_start_y = 0
@@ -76,6 +77,7 @@ class Player:
             if platform.intersects_vertical(self):
                 if self.y_velocity < 0:  # Player is moving downwards
                     self.is_grounded = True
+                    self.jump_count = 0
                     self.is_jumping = False
                     self.y_velocity = 0
                     self.turtle.sety(platform.top_height() + self.height / 2)
@@ -95,18 +97,30 @@ class Player:
                 self.is_grounded = False
                 self.last_platform = None
 
-        # Adjust jumping behavior
-        if self.is_jumping and self.turtle.ycor() >= self.jump_start_y + self.max_jump_height:
-            self.is_jumping = False
-            self.is_grounded = False
-
     def jump(self):
-        self.is_jumping = True
-        self.jump_start_y = self.turtle.ycor()
-        self.y_velocity = self.jump_speed
+        if not self.is_jumping and self.jump_count < self.max_jumps:
+            self.is_grounded = False
+            self.jump_start_y = self.turtle.ycor()
+            self.y_velocity = self.jump_speed
+            self.jump_count += 1
 
     def draw(self):
         pass
+
+    def collide_with_enemy(self, enemy):
+        player_left = self.turtle.xcor() - self.width / 2
+        player_right = self.turtle.xcor() + self.width / 2
+        player_top = self.turtle.ycor() + self.height / 2
+        player_bottom = self.turtle.ycor() - self.height / 2
+
+        enemy_left = enemy.turtle.xcor() - enemy.width / 2
+        enemy_right = enemy.turtle.xcor() + enemy.width / 2
+        enemy_top = enemy.turtle.ycor() + enemy.height / 2
+        enemy_bottom = enemy.turtle.ycor() - enemy.height / 2
+
+        # Check for intersection between player and enemy hitboxes
+        return (player_left <= enemy_right and player_right >= enemy_left and
+                player_bottom <= enemy_top and player_top >= enemy_bottom)
 
     @classmethod
     def create_player(cls, **kwargs):
