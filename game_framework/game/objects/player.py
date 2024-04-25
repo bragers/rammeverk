@@ -104,9 +104,6 @@ class Player:
             self.y_velocity = self.jump_speed
             self.jump_count += 1
 
-    def draw(self):
-        pass
-
     def collide_with_enemy(self, enemy):
         player_left = self.turtle.xcor() - self.width / 2
         player_right = self.turtle.xcor() + self.width / 2

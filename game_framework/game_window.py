@@ -7,4 +7,3 @@ class GameWindow:
         self.window.title(title)
         self.window.setup(width=width, height=height)
         self.window.bgcolor(bgcolor)
-        self.window.tracer(0)  # Disable automatic window updates

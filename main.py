@@ -5,7 +5,6 @@ from game_framework.game.objects.enemy import Enemy
 
 
 class Game:
-
     widthVar = 0
     heightVar = 0
 
@@ -46,11 +45,9 @@ class Game:
         self.start_game(width, height)
 
     def update(self):
-        # Runs the player.update function, using self.platforms as a parameter to tell it what platforms exist for collision purposes
+        # Runs the player.update function, using self.platforms as a parameter to tell it what platforms exist for
+        # collision purposes
         self.player.update(self.platforms)
-
-        for enemy in self.enemies:
-            enemy.update(self.platforms)
 
         for enemy in self.enemies:
             if self.player.collide_with_enemy(enemy):
@@ -69,8 +66,6 @@ class Game:
         while True:
             self.update()
             self.screen.update()
-
-
 
 
 if __name__ == "__main__":
