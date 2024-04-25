@@ -17,5 +17,4 @@ class Game:
         running = True
         while running:
             self.update()
-            self.handle_collisions()
             self.draw()

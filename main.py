@@ -16,14 +16,14 @@ class Game:
         self.screen.title("2D Platformer Game")
         self.screen.bgcolor("black")
 
-        self.player = Player.create_player(x=-100, y=25, jump_speed=15)  # Adjust player initial position
+        self.player = Player.create_player(x=-100, y=25, shape="square", color="white", width=20, height=20, gravity=1, jump_speed=10, max_jumps=2, move_speed=10)  # Adjust player initial position
 
         # Create platforms
         self.platforms = [
             Platform(x=-100, y=-60, width=2000, height=40),
             Platform(x=0, y=100, width=150, height=20),
             Platform(x=150, y=120, width=150, height=20),
-            # Add more platforms as needed
+
         ]
 
         # Create enemies
@@ -34,7 +34,7 @@ class Game:
             Enemy(x=100, y=-30),
             Enemy(x=200, y=-30),
             Enemy(x=-200, y=-30),
-            # Add more enemies as needed
+
         ]
 
     def __init__(self, width, height):
@@ -54,15 +54,10 @@ class Game:
                 self.restart_game()
 
     def restart_game(self):
-        # Reset player and enemies to initial positions
-        # self.player.turtle.goto(-100, 25)
         self.screen.clear()
         self.start_game(self.widthVar, self.heightVar)
 
     def run(self):
-
-        jump_count = 0
-
         while True:
             self.update()
             self.screen.update()
