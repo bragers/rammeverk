@@ -21,6 +21,12 @@ class Game:
         Update the state of all game objects.
         """
         # Iterate over each game object and update its state
+        self.game_objects = []
+
+    def add_game_object(self, game_object):
+        self.game_objects.append(game_object)
+
+    def update(self):
         for obj in self.game_objects:
             obj.update()
 
@@ -42,4 +48,7 @@ class Game:
             self.update()
 
             # Draw the game objects
+        running = True
+        while running:
+            self.update()
             self.draw()

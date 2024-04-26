@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import turtle  # Importing the turtle module for graphics
 
 
@@ -29,3 +30,10 @@ class Enemy:
         self.width = width
         self.height = height
 
+        self.turtle = turtle.Turtle()
+        self.turtle.shape(shape)
+        self.turtle.color(color)
+        self.turtle.penup()
+        self.turtle.goto(x, y)
+        self.width = width
+        self.height = height

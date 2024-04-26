@@ -80,6 +80,15 @@ class Player:
     def apply_gravity(self):
         """Apply gravity to the player."""
 
+        self.x_velocity = speed
+
+    def move_right(self, speed):
+        self.x_velocity = speed
+
+    def move_stop(self):
+        self.x_velocity = 0
+
+    def apply_gravity(self):
         if not self.is_grounded:  # Apply gravity only if the player is not grounded
             self.y_velocity = self.y_velocity - self.gravity
 

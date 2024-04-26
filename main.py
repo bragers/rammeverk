@@ -18,6 +18,7 @@ class Game:
 
         self.player = Player.create_player(x=-100, y=25, shape="square", color="white", width=20, height=20, gravity=1,
                                            jump_speed=10, max_jumps=2, move_speed=10)  # Adjust player initial position
+        self.player = Player.create_player(x=-100, y=25, shape="square", color="white", width=20, height=20, gravity=1, jump_speed=10, max_jumps=2, move_speed=10)  # Adjust player initial position
 
         # Create platforms
         self.platforms = [

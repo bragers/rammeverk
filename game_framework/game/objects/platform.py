@@ -17,6 +17,7 @@ class Platform:
         self.turtle = turtle.Turtle()
 
         # Setting the shape, color, and initial position of the platform
+        self.turtle = turtle.Turtle()
         self.turtle.shape("square")
         self.turtle.color(color)
         self.turtle.penup()
@@ -26,6 +27,7 @@ class Platform:
         self.turtle.shapesize(stretch_wid=height / 20, stretch_len=width / 20)
 
         # Storing width and height for potential future use
+        self.turtle.shapesize(stretch_wid=height / 20, stretch_len=width / 20)
         self.width = width
         self.height = height
 
@@ -40,6 +42,7 @@ class Platform:
         bool: True if the platforms intersect vertically, False otherwise.
         """
         # Check if the bounding boxes of the two objects intersect vertically
+        # Check if the bounding boxes of the two objects intersect
         return (abs(self.turtle.xcor() - other.turtle.xcor()) * 2 < (self.width + other.width)) and \
             (abs(self.turtle.ycor() - other.turtle.ycor()) * 2 < (self.height + other.height))
 
@@ -55,6 +58,7 @@ class Platform:
         bool: True if the platforms intersect horizontally, False otherwise.
         """
         # Check if the bounding boxes of the two objects intersect horizontally
+        # Check if the player intersects horizontally with the platform
         return (abs(self.turtle.ycor() - other.turtle.ycor()) * 2 < (self.height + other.height)) and \
             (abs(new_x - self.turtle.xcor()) * 2 < (self.width + other.width))
 
@@ -92,4 +96,13 @@ class Platform:
         Returns:
         int: The y-coordinate of the bottom edge.
         """
+        return self.turtle.xcor() - self.width / 2
+
+    def right_edge(self):
+        return self.turtle.xcor() + self.width / 2
+
+    def top_height(self):
+        return self.turtle.ycor() + self.height / 2
+
+    def bottom_height(self):
         return self.turtle.ycor() - self.height / 2

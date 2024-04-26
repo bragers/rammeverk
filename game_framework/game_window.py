@@ -16,6 +16,7 @@ class GameWindow:
         self.window = turtle.Screen()
 
         # Setting window title, size, and background color
+        self.window = turtle.Screen()
         self.window.title(title)
         self.window.setup(width=width, height=height)
         self.window.bgcolor(bgcolor)
